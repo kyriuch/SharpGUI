@@ -1,0 +1,86 @@
+{
+  "Name": "iCreator",
+  "Width": 500,
+  "Height": 700,
+  "Theme": null,
+  "ThemeName": "Light",
+  "Elements": [
+    {
+      "Name": "TitleLabel",
+      "Type": "Label",
+      "FontSize": 26,
+      "Text": "iCreator",
+      "Position": {
+        "X": 180,
+        "Y": 130
+      }
+    },
+    {
+      "Name": "LoginTextField",
+      "Type": "TextField",
+      "FontSize": 22,
+      "Tooltip": "Login",
+      "Position": {
+        "X": 140,
+        "Y": 250
+      },
+      "Size": {
+        "X": 220,
+        "Y": 50
+      }
+    },
+    {
+      "Name": "PasswordTextField",
+      "Type": "TextField",
+      "FontSize": 22,
+      "Tooltip": "Password",
+      "TextType": 1,
+      "Position": {
+        "X": 140,
+        "Y": 330
+      },
+      "Size": {
+        "X": 220,
+        "Y": 50
+      }
+    },
+    {
+      "Name": "AcceptButton",
+      "Type": "Button",
+      "FontSize": 22,
+      "Text": "Login",
+      "TextColor": "#FFFFFF",
+      "ShapeType": 2,
+      "Position": {
+        "X": 140,
+        "Y": 410
+      },
+      "Size": {
+        "X": 220,
+        "Y": 50
+      }
+    },
+    {
+      "Name": "LoginImage",
+      "Type": "Image",
+      "Scale": 0.7,
+      "Filename": "login.png",
+      "Position": {
+        "X": 330,
+        "Y": 262
+      },
+      "Color": "#007acc"
+    },
+    {
+      "Name": "LoginImage",
+      "Type": "Image",
+      "Scale": 0.7,
+      "Filename": "password.png",
+      "Position": {
+        "X": 330,
+        "Y": 344
+      },
+      "Color": "#007acc"
+    }
+  ]
+}
