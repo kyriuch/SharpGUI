@@ -29,6 +29,8 @@ namespace iCreator.Window
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            
+            string xd = GL.GetString(StringName.Version);
 
             setupGL();
             shaderLoader.LoadShaders();

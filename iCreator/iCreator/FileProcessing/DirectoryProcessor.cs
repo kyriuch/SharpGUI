@@ -45,9 +45,11 @@ namespace iCreator.FileProcessing
         {
             foreach (string dir in directoriesToCreate)
             {
-                if (!Directory.Exists($"{ directory }\\{ dir }"))
+                string currentDir = $"{ directory }\\{ dir }";
+
+                if (!Directory.Exists(currentDir))
                 {
-                    Directory.CreateDirectory($"{ directory }\\{ dir }");
+                    Directory.CreateDirectory(currentDir);
                 }
             }
         }

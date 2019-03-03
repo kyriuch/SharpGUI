@@ -39,56 +39,86 @@ namespace iCreator.FileProcessing
 
         private void processStartupConfigFile()
         {
-            if (!File.Exists($"{ directoryHelper.GetRootProjectDirectory() }\\iCreator\\Configuration\\StartupConfig.json"))
+            string startupConfigDir = $"{ directoryHelper.GetRootProjectDirectory() }\\iCreator\\Configuration\\StartupConfig.json";
+
+            if (!File.Exists(startupConfigDir))
             {
-                createStartupConfigFile();
+                createStartupConfigFile(startupConfigDir);
             }
             else
             {
                 startupConfig = JsonConvert.DeserializeObject<StartupConfig>(
-                    File.ReadAllText($"{ directoryHelper.GetRootProjectDirectory() }\\iCreator\\Configuration\\StartupConfig.json"));
+                    File.ReadAllText(startupConfigDir);
             }
         }
 
-        private void createStartupConfigFile()
+        private void createStartupConfigFile(string startupConfigDir)
         {
             startupConfig = new StartupConfig()
             {
                 StartupViewName = "iCreator"
             };
 
-            File.Create($"{ directoryHelper.GetRootProjectDirectory() }\\iCreator\\Configuration\\StartupConfig.json").Dispose();
+            File.Create(startupConfigDir).Dispose();
 
             using (StreamWriter writer = new StreamWriter(
-                $"{ directoryHelper.GetRootProjectDirectory() }\\iCreator\\Configuration\\StartupConfig.json"))
+                startupConfigDir))
             {
                 writer.Write(JsonConvert.SerializeObject(startupConfig, Formatting.Indented));
             }
 
-            File.Copy($"{ directoryHelper.GetRootProjectDirectory() }\\iCreator\\Configuration\\StartupConfig.json",
-                $"{ Directory.GetCurrentDirectory() }\\iCreator\\Configuration\\StartupConfig.json", true);
+            string currentDirectoryStartupConfigDir = $"{ Directory.GetCurrentDirectory() }\\iCreator\\Configuration\\StartupConfig.json";
+
+            File.Copy(startupConfigDir, currentDirectoryStartupConfigDir, true);
         }
 
         private void processStartupViewFile()
         {
             View startupView;
 
-            if (!File.Exists($"{ directoryHelper.GetRootProjectDirectory() }\\iCreator\\Views\\{ startupConfig.StartupViewName }.json"))
+            string startupViewFileDir = $"{ directoryHelper.GetRootProjectDirectory() }\\iCreator\\Views\\{ startupConfig.StartupViewName }.json";
+
+            if (!File.Exists(startupViewFileDir))
             {
-                startupView = createStartupWindowFile();
+                startupView = createStartupWindowFile(startupViewFileDir);
             }
             else
             {
                 startupView = JsonConvert.DeserializeObject<View>(
-                    File.ReadAllText($"{ directoryHelper.GetRootProjectDirectory() }\\iCreator\\Views\\{ startupConfig.StartupViewName }.json"));
+                    File.ReadAllText(startupViewFileDir));
 
                 if (startupView == null)
-                    startupView = createStartupWindowFile();
+                    startupView = createStartupWindowFile(startupViewFileDir);
             }
 
             startupView.Filename = startupConfig.StartupViewName;
 
             copyViewProperties(startupView, ContainerProvider.Scope.Resolve<View>());
+        }
+
+        private View createStartupWindowFile(string startWindowFileDir)
+        {
+            File.Create(startWindowFileDir).Dispose();
+
+            View startupWindow = new View()
+            {
+                Name = "iCreator",
+                Width = 1280,
+                Height = 720,
+                ThemeName = "Light",
+                Elements = new System.Collections.Generic.List<Element>()
+            };
+
+            using (StreamWriter writer = new StreamWriter(startWindowFileDir))
+            {
+                writer.Write(JsonConvert.SerializeObject(startupWindow, Formatting.Indented));
+            }
+
+            string currentDirectoryStartupViewFileDir = $"{ Directory.GetCurrentDirectory() }\\iCreator\\Views\\{ startupConfig.StartupViewName }.json";
+
+            File.Copy(startWindowFileDir, currentDirectoryStartupViewFileDir, true);
+
+            return startupWindow;
         }
 
         private void copyViewProperties(View sourceView, View destinyView)
@@ -141,30 +171,6 @@ namespace iCreator.FileProcessing
             }
         }
 
-        private View createStartupWindowFile()
-        {
-            File.Create($"{ directoryHelper.GetRootProjectDirectory() }\\iCreator\\Views\\{ startupConfig.StartupViewName }.json").Dispose();
-
-            View startupWindow = new View()
-            {
-                Name = "iCreator",
-                Width = 1280,
-                Height = 720,
-                ThemeName = "Light",
-                Elements = new System.Collections.Generic.List<Element>()
-            };
-
-            using (StreamWriter writer = new StreamWriter($"{ directoryHelper.GetRootProjectDirectory() }\\iCreator\\Views\\{ startupConfig.StartupViewName }.json"))
-            {
-                writer.Write(JsonConvert.SerializeObject(startupWindow, Formatting.Indented));
-            }
-
-            File.Copy($"{ directoryHelper.GetRootProjectDirectory() }\\iCreator\\Views\\{ startupConfig.StartupViewName }.json",
-                $"{ Directory.GetCurrentDirectory() }\\iCreator\\Views\\{ startupConfig.StartupViewName }.json", true);
-
-            return startupWindow;
-        }
-
         private void checkWhetherControllersExist()
         {
             string[] files = Directory.GetFiles($"{ directoryHelper.GetRootProjectDirectory() }\\iCreator\\Views");
@@ -174,12 +180,13 @@ namespace iCreator.FileProcessing
             foreach (string filePath in files)
             {
                 string fileName = Path.GetFileNameWithoutExtension(filePath);
+                string fileDir = $"{ directoryHelper.GetRootProjectDirectory() }\\iCreator\\Controllers\\{ fileName }Controller.cs";
 
-                if (!File.Exists($"{ directoryHelper.GetRootProjectDirectory() }\\iCreator\\Controllers\\{ fileName }Controller.cs"))
+                if (!File.Exists(fileDir))
                 {
-                    File.Create($"{ directoryHelper.GetRootProjectDirectory() }\\iCreator\\Controllers\\{ fileName }Controller.cs").Dispose();
+                    File.Create(fileDir).Dispose();
 
-                    using (StreamWriter writer = new StreamWriter($"{ directoryHelper.GetRootProjectDirectory() }\\iCreator\\Controllers\\{ fileName }Controller.cs"))
+                    using (StreamWriter writer = new StreamWriter(fileDir))
                     {
                         writer.WriteLine("namespace " + nameSpace + ".iCreator.Controllers");
                         writer.WriteLine("{");
@@ -190,8 +197,9 @@ namespace iCreator.FileProcessing
                         writer.WriteLine("}");
                     }
 
-                    File.Copy($"{ directoryHelper.GetRootProjectDirectory() }\\iCreator\\Controllers\\{ fileName }Controller.cs",
-                        $"{ Directory.GetCurrentDirectory() }\\iCreator\\Controllers\\{ fileName }Controller.cs", true);
+                    string currentDirectoryFileDir = $"{ Directory.GetCurrentDirectory() }\\iCreator\\Controllers\\{ fileName }Controller.cs";
+
+                    File.Copy(fileDir, currentDirectoryFileDir, true);
                 }
             }
         }
