@@ -6,6 +6,8 @@ namespace iCreator
 {
     public class iCreatorStarter
     {
+        private static IContainer container;
+
         private iCreatorStarter()
         {
 
@@ -13,9 +15,18 @@ namespace iCreator
 
         public static void Start()
         {
-            var container = ContainerConfig.Configure();
+            configureContainer();
+            initializeApplication();
+        }
 
-            using(var scope = container.BeginLifetimeScope())
+        private static void configureContainer()
+        {
+            container = ContainerConfig.Configure();
+        }
+
+        private static void initializeApplication()
+        {
+            using (var scope = container.BeginLifetimeScope())
             {
                 ContainerProvider.SetupScope(scope);
 

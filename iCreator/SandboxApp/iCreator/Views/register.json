@@ -1,5 +1,6 @@
 {
   "Name": "iCreator",
+  "Filename": "register",
   "Width": 500,
   "Height": 700,
   "Theme": null,
@@ -45,37 +46,56 @@
       }
     },
     {
-      "Name": "NewAccountLabel",
-      "Type": "Label",
-      "FontSize": 16,
-      "Text": "Create account         .",
+      "Name": "RepeatPasswordTextField",
+      "Type": "TextField",
+      "FontSize": 22,
+      "Tooltip": "Repeat Pass",
+      "TextType": 1,
       "Position": {
         "X": 140,
-        "Y": 400
+        "Y": 410
+      },
+      "Size": {
+        "X": 220,
+        "Y": 50
       }
     },
     {
-      "Name": "NewAccountButton",
+      "Name": "SexLabel",
       "Type": "Label",
-      "FontSize": 16,
-      "Text": "here",
+      "FontSize": 22,
+      "Text": "Sex        M          F",
       "Position": {
-        "X": 294,
-        "Y": 400
-      },
-      "Clickable": true,
-      "TextColor": "#004a9c"
+        "X": 70,
+        "Y": 490
+      }
     },
     {
-      "Name": "LoginButton",
+      "Name": "MaleCheckbox",
+      "Type": "Checkbox",
+      "Position": {
+        "X": 140,
+        "Y": 490
+      }
+    },
+    {
+      "Name": "FemaleCheckbox",
+      "Type": "Checkbox",
+      "Position": {
+        "X": 240,
+        "Y": 490
+      }
+    },
+    {
+      "Name": "RegisterButton",
       "Type": "Button",
       "FontSize": 22,
-      "Text": "Login",
+      "Text": "Register",
       "TextColor": "#FFFFFF",
       "ShapeType": 2,
       "Position": {
         "X": 140,
-        "Y": 440
+        "Y": 550
       },
       "Size": {
         "X": 220,
@@ -101,6 +121,17 @@
       "Position": {
         "X": 330,
         "Y": 344
+      },
+      "Color": "#007acc"
+    },
+    {
+      "Name": "RepeatPasswordImage",
+      "Type": "Image",
+      "Scale": 0.7,
+      "Filename": "password.png",
+      "Position": {
+        "X": 330,
+        "Y": 424
       },
       "Color": "#007acc"
     }

@@ -91,12 +91,13 @@ namespace iCreator.Elements
             
         }
 
-        internal override void OnMouseDown(MouseButtonEventArgs args)
+        internal override void OnMouseDown(MouseButtonEventArgs e)
         {
-            if (args.X >= pos.X && args.X <= pos.X + size.X
-                && args.Y >= pos.Y && args.Y <= pos.Y + size.Y && onClickEvent != null)
+            if (e.X >= pos.X && e.X <= pos.X + size.X && 
+                e.Y >= pos.Y && e.Y <= pos.Y + size.Y && onClickEvent != null)
             {
                 onClickEvent();
+                applicationWindow.Cursor = MouseCursor.Default;
             }
         }
 

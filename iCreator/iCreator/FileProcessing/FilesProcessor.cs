@@ -48,7 +48,7 @@ namespace iCreator.FileProcessing
             else
             {
                 startupConfig = JsonConvert.DeserializeObject<StartupConfig>(
-                    File.ReadAllText(startupConfigDir);
+                    File.ReadAllText(startupConfigDir));
             }
         }
 

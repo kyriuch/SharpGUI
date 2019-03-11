@@ -25,11 +25,11 @@ namespace iCreator.Graphics.Shapes
                 edgeTexture.BindFilename("iCreator\\Resources\\edge_colored.png");
             }
 
-            if (size.X < 12 || size.Y < 12)
+            if (size.X < 13 || size.Y < 13)
             {
                 ILogger logger = ContainerProvider.Scope.Resolve<ILogger>();
 
-                logger.Warning("Better provide size larger or equal to 11x11.");
+                logger.Warning("Better provide size larger or equal to 13x13.");
             }
 
             edges = new List<ColorTextureVao>();
@@ -102,7 +102,7 @@ namespace iCreator.Graphics.Shapes
 
             RectFill topRectangle = new RectFill(
                 new Vector2(pos.X + 12, pos.Y + 1),
-                new Vector2(size.X - 22, 11),
+                new Vector2(size.X - 21, 11),
                 color);
 
             RectFill rightRectangle = new RectFill(
@@ -112,7 +112,7 @@ namespace iCreator.Graphics.Shapes
 
             RectFill bottomRectangle = new RectFill(
                 new Vector2(pos.X + 12, pos.Y + size.Y - 10),
-                new Vector2(size.X - 22, 11),
+                new Vector2(size.X - 21, 11),
                 color);
 
             RectFill centerRectangle = new RectFill(

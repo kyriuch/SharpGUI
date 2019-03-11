@@ -7,24 +7,46 @@ namespace SandboxApp.iCreator.Controllers
 {
     public class iCreatorController : IController
     {
-        Button acceptButton;
-        TextField loginTextField;
-        TextField passwordTextField;
-        ILogger logger;
+#pragma warning disable 0649
+        private Button loginButton;
+        private Label newAccountButton;
+        private TextField loginTextField;
+        private TextField passwordTextField;
+        private ILogger logger;
+#pragma warning restore 0649
 
-        Account account;
+        private Account account;
 
         public void Initialize()
         {
-            account = new Account();
-
-            acceptButton.AddOnClickListener(() =>
+            loginButton.AddOnClickListener(() =>
             {
-                account.Login = loginTextField.Text;
-                account.Password = passwordTextField.Text;
+                if (string.IsNullOrEmpty(loginTextField.Text))
+                {
+                    logger.Warning("You must provide login.");
 
-                logger.Info($"Login: { account.Login } Password: { account.Password }");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(passwordTextField.Text))
+                {
+                    logger.Warning("You must provide password.");
+
+                    return;
+
+                }
+
+                Account account = new Account()
+                {
+                    Login = loginTextField.Text,
+                    Password = passwordTextField.Text
+                };
+
+                logger.Info($"Successfully logged in with " +
+                    $"login \"{ account.Login }\" and password \"{ account.Password }\".");
             });
+
+            newAccountButton.AddOnClickListener(() => SceneChanger.ChangeScene("register"));
         }
     }
 }

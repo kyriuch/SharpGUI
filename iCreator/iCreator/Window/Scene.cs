@@ -81,6 +81,8 @@ namespace iCreator.Window
                         case "TextField": setupTextField(element); break;
                         case "Button": setupButton(element); break;
                         case "Image": setupImage(element); break;
+                        case "ProgressBar": setupProgressBar(element); break;
+                        case "Checkbox": setupCheckbox(element); break;
                     }
             });
 
@@ -145,7 +147,7 @@ namespace iCreator.Window
                 colorHelper.ToTKColor(element.TextColor);
 
             label.Setup(vectorHelper.ToTKVector2(element.Position),
-                element.Text, textColor, element.FontSize);
+                element.Text, textColor, element.FontSize, element.Clickable);
 
             addReferenceToAController(element, label);
 
@@ -237,6 +239,33 @@ namespace iCreator.Window
             elements.Add(image);
         }
 
+        private void setupProgressBar(Models.Element element)
+        {
+            ProgressBar progressBar = ContainerProvider.Scope.Resolve<ProgressBar>();
+
+            Color4 color = string.IsNullOrEmpty(element.Color) ? primaryColor : colorHelper.ToTKColor(element.Color);
+            Color4 fillColor = string.IsNullOrEmpty(element.FillColor) ? primaryColor : colorHelper.ToTKColor(element.FillColor);
+
+            progressBar.Setup(vectorHelper.ToTKVector2(element.Position), vectorHelper.ToTKVector2(element.Size), color, fillColor);
+
+            addReferenceToAController(element, progressBar);
+
+            elements.Add(progressBar);
+        }
+
+        private void setupCheckbox(Models.Element element)
+        {
+            Checkbox checkBox = ContainerProvider.Scope.Resolve<Checkbox>();
+
+            Color4 color = string.IsNullOrEmpty(element.Color) ? primaryColor : colorHelper.ToTKColor(element.Color);
+
+            checkBox.Setup(vectorHelper.ToTKVector2(element.Position), color);
+
+            addReferenceToAController(element, checkBox);
+
+            elements.Add(checkBox);
+        }
+
         private void setupController(View view)
         {
             Assembly entryAssembly = Assembly.GetEntryAssembly();
@@ -245,11 +274,11 @@ namespace iCreator.Window
 
             Type type = entryAssembly.GetType($"{ nameSpace }.iCreator.Controllers.{ view.Filename }Controller");
 
-            controller = (IController) Activator.CreateInstance(type);
+            controller = (IController)Activator.CreateInstance(type);
 
             controllerFields = type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).ToList();
 
-            if(controllerFields.Any(x => x.FieldType.Name.Equals("ILogger")))
+            if (controllerFields.Any(x => x.FieldType.Name.Equals("ILogger")))
             {
                 FieldInfo field = controllerFields.FirstOrDefault(x => x.FieldType.Name.Equals("ILogger"));
 

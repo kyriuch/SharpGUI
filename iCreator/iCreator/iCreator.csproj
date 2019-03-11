@@ -76,11 +76,14 @@
     <Compile Include="Container\ContainerConfig.cs" />
     <Compile Include="Container\InternalConstructorFinder.cs" />
     <Compile Include="Elements\Button.cs" />
+    <Compile Include="Elements\Checkbox.cs" />
     <Compile Include="Elements\Element.cs" />
     <Compile Include="Elements\Image.cs" />
     <Compile Include="Elements\Label.cs" />
+    <Compile Include="Elements\ProgressBar.cs" />
     <Compile Include="Elements\TextField.cs" />
     <Compile Include="External\IController.cs" />
+    <Compile Include="External\SceneChanger.cs" />
     <Compile Include="Graphics\Advanced\Text.cs" />
     <Compile Include="Graphics\Advanced\Texture.cs" />
     <Compile Include="Graphics\GLWrappers\ColorTextureVao.cs" />
@@ -140,12 +143,17 @@
     <None Include="iCreator\Shaders\TextureVertexShader.shader">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Content Include="iCreator\Resources\app_icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="iCreator\Resources\checkbox_unchecked.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="iCreator\Resources\checkbox_checked.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="iCreator\Resources\edge_border.png">

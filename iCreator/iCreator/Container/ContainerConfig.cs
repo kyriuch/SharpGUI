@@ -39,6 +39,8 @@ namespace iCreator.Container
             builder.RegisterType<Image>()       .FindConstructorsWith(new InternalConstructorFinder()).AsSelf();
             builder.RegisterType<Label>()       .FindConstructorsWith(new InternalConstructorFinder()).AsSelf();
             builder.RegisterType<TextField>()   .FindConstructorsWith(new InternalConstructorFinder()).AsSelf();
+            builder.RegisterType<ProgressBar>() .FindConstructorsWith(new InternalConstructorFinder()).AsSelf();
+            builder.RegisterType<Checkbox>()    .FindConstructorsWith(new InternalConstructorFinder()).AsSelf();
 
             builder.RegisterAssemblyTypes(Assembly.Load(nameof(iCreator)))
                 .Where(t => t.Namespace.Contains("FileProcessing"))

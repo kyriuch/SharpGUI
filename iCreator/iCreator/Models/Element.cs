@@ -19,6 +19,7 @@
         public Vector2 Position { get; set; } // Top left corner
         public Vector2 Size { get; set; }
         public string Color { get; set; }
+        public string FillColor { get; set; }
         public string TextColor { get; set; }
         public int FontSize { get; set; }
         public string Tooltip { get; set; } // Tooltip tip for TextField
@@ -27,5 +28,6 @@
         public string FileName { get; set; } // Filename of an image
         public int ShapeType { get; set; } // Type of a shape for element
         public int TextType { get; set; } // 0 - Text   1 - Password
+        public bool Clickable { get; set; }
     }
 }
